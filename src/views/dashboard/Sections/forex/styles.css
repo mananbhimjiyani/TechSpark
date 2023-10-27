@@ -3,14 +3,14 @@
     font-family: 'Lato', sans-serif;
 }
 body{
-    background-image:linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url("/Users/manan/stock/src/assets/pexels-anna-nekrashevich-6801648.jpg") ;
+    background-image:linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url("/src/assets/pexels-anna-nekrashevich-6801648.jpg") ;
     background-position: center;
     background-size: cover;
 }
 .main{
     position: relative;
     top: 160px;
-    background-image: linear-gradient(0deg, rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("/Users/manan/stock/src/assets/7TrU.gif");
+    background-image: linear-gradient(0deg, rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("/src/assets/7TrU.gif");
     background-position: center;
     background-size: cover;
     color: white;
