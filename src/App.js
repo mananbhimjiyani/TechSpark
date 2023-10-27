@@ -1,25 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import LoadingScreen from "./views/loadingScreen/loadingScreen";
+import {Auth0Provider} from "@auth0/auth0-react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    console.log(window.location.origin)
+    return (
+        <Auth0Provider
+            domain="stockauth.us.auth0.com"
+            clientId="O8QMBwDEnwDglnwNWCME9g5ndWHQziJs"
+            authorizationParams={{
+                redirect_uri: window.location.origin
+            }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <Router>
+                <div className="App">
+                    <div className="container">
+                        <Routes>
+                            <Route exact path={"/"} element={<LoadingScreen/>}/>
+                        </Routes>
+                    </div>
+                </div>
+            </Router>
+        </Auth0Provider>
+    );
 }
 
 export default App;
