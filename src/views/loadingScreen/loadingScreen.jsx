@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Lottie from "react-lottie-player";
 import lottie from "./loadingData.json";
 import Selector from "../selector/selector";
+import "./styles.css";
 
 function LoadingScreen() {
     const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -27,11 +28,14 @@ function LoadingScreen() {
     return (
         <div className="centered-element">
             {!animationComplete ? (
-                <Lottie
-                    className="lottie-player"
-                    animationData={lottie}
-                    play
-                />
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <Lottie
+                        className="lottie-player"
+                        animationData={lottie}
+                        play
+                        style={{ height: '500px', width: '500px' }}
+                    />
+                </div>
             ) : isAuthenticated ? (
                 <div className="other-section">
                     <Selector/>
