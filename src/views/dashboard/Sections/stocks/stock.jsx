@@ -25,7 +25,7 @@ export default function Stock() {
 
         // Send a GET request to the Flask API with the selected stock as a number
         const companySymbol = selectedStock;
-        fetch(`http://174.129.176.23:8000/predict?company_symbol=${companySymbol}`, {
+        fetch(`http://174.129.176.23:8000/ predict?company_symbol=${companySymbol}`, {
             method: 'GET',
         })
             .then((response) => response.json())
