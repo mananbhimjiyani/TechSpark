@@ -21,7 +21,7 @@ export default function Forex() {
         // Send a GET request to the Flask API with the selected forex symbol
         const forex_index = selectedForex;
         console.log(forex_index);
-        fetch(`http://127.0.0.1:5000/predict_forex?forex_symbol=${forex_index}`, {
+        fetch(`http://174.129.176.23:8000/predict_forex?forex_symbol=${forex_index}`, {
             method: 'GET',
         })
             .then((response) => response.json())
