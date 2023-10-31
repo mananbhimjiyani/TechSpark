@@ -22,23 +22,50 @@ export default function Stock() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
-
-        // Send a GET request to the Flask API with the selected stock as a number
         const companySymbol = selectedStock;
-        fetch(`http://174.129.176.23:8000/predict?company_symbol=${companySymbol}`, {
-            method: 'GET',
+        const apiUrl = `http://174.129.176.23:8000/predict?company_symbol=${encodeURIComponent(companySymbol)}`;
+        fetch(`https://proxy-stonks.onrender.com/proxy?url=${encodeURIComponent(apiUrl)}`, {
+            method: 'GET'
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
             .then((data) => {
-                // Update the state with the prediction value
-                setPrediction(data.prediction);
+                try {
+                    const parsedData = JSON.parse(data);
+                    setPrediction(parsedData.prediction);
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                    // Handle the error, e.g., show an error message to the user
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
             })
             .finally(() => {
-                setIsLoading(false);  // Set isLoading to false when the fetch is complete
+                setIsLoading(false);
             });
+
+
+        // Send a GET request to the Flask API with the selected stock as a number
+
+        // fetch(`http://174.129.176.23:8000/predict?company_symbol=${companySymbol}`, {
+        //     method: 'GET',
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         // Update the state with the prediction value
+        //
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error:', error);
+        //     })
+        //     .finally(() => {
+        //         setIsLoading(false);  // Set isLoading to false when the fetch is complete
+        //     });
 
     };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./styles.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const forex_mapping = {
     0: 'AUD-USD-ASK', 1: 'AUD-USD-BID', 2: 'EUR-USD-ASK', 3: 'EUR-USD-BID',
@@ -18,20 +18,27 @@ export default function Forex() {
         e.preventDefault();
 
         setLoading(true);
+        setError(null); // Clear any previous errors
         // Send a GET request to the Flask API with the selected forex symbol
         const forex_index = selectedForex;
         console.log(forex_index);
         fetch(`http://174.129.176.23:8000/predict_forex?forex_symbol=${forex_index}`, {
             method: 'GET',
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then((data) => {
                 // Update the state with the prediction value
                 setPrediction(data.prediction);
-                setLoading(false);
             })
             .catch((error) => {
                 setError("An error occurred. Please try again.");
+            })
+            .finally(() => {
                 setLoading(false);
             });
     };
